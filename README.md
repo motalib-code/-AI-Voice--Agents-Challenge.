@@ -23,6 +23,8 @@ We just launched **Murf Falcon** – the consistently fastest TTS API, and you'r
 - Day 5: ✅ Primary Goal – Simple FAQ SDR + Lead Capture - COMPLETED 💼📋
 - Day 6: ✅ Fraud Alert Agent - COMPLETED 🔐🚨
 - Day 7: ✅ Food & Grocery Ordering Voice Agent - COMPLETED 🛒🍕
+- Day 8: ✅ Voice Game Master (D&D-Style Adventure) - COMPLETED 🎲🐉
+- Day 9: ✅ E-commerce Agent (ACP Lite) - COMPLETED 🛍️🤖
 
 ## Repository Structure
 
