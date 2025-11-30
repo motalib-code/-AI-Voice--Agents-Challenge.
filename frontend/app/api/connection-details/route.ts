@@ -33,8 +33,10 @@ export async function POST(req: Request) {
     const body = await req.json();
     const agentName: string = body?.room_config?.agents?.[0]?.agent_name;
 
+    const providedName: string | undefined = body?.participant_name;
+
     // Generate participant token
-    const participantName = 'user';
+    const participantName = providedName || 'user';
     const participantIdentity = `voice_assistant_user_${Math.floor(Math.random() * 10_000)}`;
     const roomName = `voice_assistant_room_${Math.floor(Math.random() * 10_000)}`;
 

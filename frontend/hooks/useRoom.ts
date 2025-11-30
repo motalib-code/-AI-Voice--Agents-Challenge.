@@ -38,7 +38,7 @@ export function useRoom(appConfig: AppConfig) {
 
   const tokenSource = useMemo(
     () =>
-      TokenSource.custom(async () => {
+      TokenSource.custom(async (params?: { agentName?: string; participantName?: string; roomCode?: string }) => {
         const url = new URL(
           process.env.NEXT_PUBLIC_CONN_DETAILS_ENDPOINT ?? '/api/connection-details',
           window.location.origin
@@ -52,11 +52,13 @@ export function useRoom(appConfig: AppConfig) {
               'X-Sandbox-Id': appConfig.sandboxId ?? '',
             },
             body: JSON.stringify({
-              room_config: appConfig.agentName
+              room_config: params?.agentName
                 ? {
-                    agents: [{ agent_name: appConfig.agentName }],
-                  }
+                  agents: [{ agent_name: params.agentName }],
+                }
                 : undefined,
+              participant_name: params?.participantName,
+              room_code: params?.roomCode,
             }),
           });
           return await res.json();
@@ -65,10 +67,11 @@ export function useRoom(appConfig: AppConfig) {
           throw new Error('Error fetching connection details!');
         }
       }),
+
     [appConfig]
   );
 
-  const startSession = useCallback(() => {
+  const startSession = useCallback((participantName?: string, roomCode?: string) => {
     setIsSessionActive(true);
 
     if (room.state === 'disconnected') {
@@ -78,7 +81,7 @@ export function useRoom(appConfig: AppConfig) {
           preConnectBuffer: isPreConnectBufferEnabled,
         }),
         tokenSource
-          .fetch({ agentName: appConfig.agentName })
+          .fetch({ agentName: appConfig.agentName, participantName, roomCode })
           .then((connectionDetails) =>
             room.connect(connectionDetails.serverUrl, connectionDetails.participantToken)
           ),

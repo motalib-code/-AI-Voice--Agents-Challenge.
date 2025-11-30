@@ -1,4 +1,5 @@
 import { Button } from '@/components/livekit/button';
+import { useState } from 'react';
 
 function WelcomeImage() {
   return (
@@ -20,7 +21,7 @@ function WelcomeImage() {
 
 interface WelcomeViewProps {
   startButtonText: string;
-  onStartCall: () => void;
+  onStartCall: (name?: string, roomCode?: string) => void;
 }
 
 export const WelcomeView = ({
@@ -28,6 +29,9 @@ export const WelcomeView = ({
   onStartCall,
   ref,
 }: React.ComponentProps<'div'> & WelcomeViewProps) => {
+  const [name, setName] = useState('');
+  const [roomCode, setRoomCode] = useState('');
+
   return (
     <div ref={ref}>
       <section className="bg-background flex flex-col items-center justify-center text-center">
@@ -37,7 +41,24 @@ export const WelcomeView = ({
           Chat live with your voice AI agent
         </p>
 
-        <Button variant="primary" size="lg" onClick={onStartCall} className="mt-6 w-64 font-mono">
+        <div className="mt-6 flex w-64 flex-col gap-2">
+          <input
+            type="text"
+            placeholder="Enter your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+          />
+          <input
+            type="text"
+            placeholder="Room Code (Optional)"
+            value={roomCode}
+            onChange={(e) => setRoomCode(e.target.value)}
+            className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+          />
+        </div>
+
+        <Button variant="primary" size="lg" onClick={() => onStartCall(name, roomCode)} className="mt-4 w-64 font-mono">
           {startButtonText}
         </Button>
       </section>
