@@ -7,6 +7,7 @@ import { ChatTranscript } from '@/components/app/chat-transcript';
 import { PreConnectMessage } from '@/components/app/preconnect-message';
 import { TileLayout } from '@/components/app/tile-layout';
 import { CharacterSheet } from '@/components/app/character-sheet';
+import { Scoreboard } from '@/components/app/scoreboard';
 import {
   AgentControlBar,
   type ControlBarControls,
@@ -95,6 +96,9 @@ export const SessionView = ({
     <section className="bg-background relative z-10 h-full w-full overflow-hidden" {...props}>
       {/* Character Sheet */}
       <CharacterSheet />
+
+      {/* Scoreboard */}
+      <Scoreboard />
 
       {/* Chat Transcript */}
       <div

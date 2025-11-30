@@ -34,11 +34,14 @@ export async function POST(req: Request) {
     const agentName: string = body?.room_config?.agents?.[0]?.agent_name;
 
     const providedName: string | undefined = body?.participant_name;
+    const roomCode: string | undefined = body?.room_code;
 
     // Generate participant token
     const participantName = providedName || 'user';
     const participantIdentity = `voice_assistant_user_${Math.floor(Math.random() * 10_000)}`;
-    const roomName = `voice_assistant_room_${Math.floor(Math.random() * 10_000)}`;
+
+    // Use room code if provided, otherwise generate random room name
+    const roomName = roomCode ? `improv_room_${roomCode}` : `voice_assistant_room_${Math.floor(Math.random() * 10_000)}`;
 
     const participantToken = await createParticipantToken(
       { identity: participantIdentity, name: participantName },

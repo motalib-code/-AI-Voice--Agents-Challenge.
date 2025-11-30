@@ -8,12 +8,12 @@ import { useRoom } from '@/hooks/useRoom';
 const SessionContext = createContext<{
   appConfig: AppConfig;
   isSessionActive: boolean;
-  startSession: (participantName?: string) => void;
+  startSession: (participantName?: string, roomCode?: string) => void;
   endSession: () => void;
 }>({
   appConfig: APP_CONFIG_DEFAULTS,
   isSessionActive: false,
-  startSession: (_participantName?: string) => { },
+  startSession: (_participantName?: string, _roomCode?: string) => { },
   endSession: () => { },
 });
 

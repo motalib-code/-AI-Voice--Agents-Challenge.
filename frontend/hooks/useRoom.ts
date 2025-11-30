@@ -81,7 +81,7 @@ export function useRoom(appConfig: AppConfig) {
           preConnectBuffer: isPreConnectBufferEnabled,
         }),
         tokenSource
-          .fetch({ agentName: appConfig.agentName, participantName, roomCode })
+          .fetch({ agentName: appConfig.agentName, participantName, roomCode } as any)
           .then((connectionDetails) =>
             room.connect(connectionDetails.serverUrl, connectionDetails.participantToken)
           ),
